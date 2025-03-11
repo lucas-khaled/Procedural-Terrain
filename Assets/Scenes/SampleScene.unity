@@ -533,6 +533,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomHeightRange: {x: 0, y: 0.1}
+  heightMapImage: {fileID: 2800000, guid: fbd1ae3b1f433714090f0a0a95f7baf5, type: 3}
+  heightMapScale: {x: 10, y: 0.2, z: 10}
+  perlinXScale: 0.0014
+  perlinYScale: 0.0014
+  perlinOffsetX: 4000
+  perlinOffsetY: 4000
+  perlinOctaves: 4
+  perlinPersistance: 5.71
+  perlinHeightScale: 0.339
   terrain: {fileID: 1997844195}
   terrainData: {fileID: 15600000, guid: 644313bcf84a4a1479b5a43cb34f2a35, type: 2}
 --- !u!1660057539 &9223372036854775807
