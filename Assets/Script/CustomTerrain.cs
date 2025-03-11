@@ -91,6 +91,24 @@ public class CustomTerrain : MonoBehaviour
         SetHeights(heightMap);
     }
 
+    public void ApplyRigdeNoise() 
+    {
+        ResetTerrain();
+        MultiplePerlinTerrain();
+        float[,] heightMap = GetHeights(false);
+
+        for (int y = 0; y < hmr; y++)
+        {
+            for (int x = 0; x < hmr; x++)
+            {
+                float old = heightMap[x, y];
+                heightMap[x, y] = 1 - Mathf.Abs(old - 0.5f);
+            }
+        }
+
+        SetHeights(heightMap);
+    }
+
     public void AddNewPerlin() 
     {
         perlinParameters.Add(new PerlinParameters());
@@ -180,9 +198,9 @@ public class CustomTerrain : MonoBehaviour
         }
     }
 
-    private float[,] GetHeights() 
+    private float[,] GetHeights(bool checkReset = true) 
     {
-        return (!resetTerrain) ? terrainData.GetHeights(0, 0, hmr, hmr) : new float[hmr, hmr];
+        return (!resetTerrain || !checkReset) ? terrainData.GetHeights(0, 0, hmr, hmr) : new float[hmr, hmr];
     }
 
     private void SetHeights(float[,] heightMap) 

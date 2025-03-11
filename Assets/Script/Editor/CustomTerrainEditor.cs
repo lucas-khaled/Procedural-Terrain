@@ -130,7 +130,12 @@ public class CustomTerrainEditor : Editor
 
             if (GUILayout.Button("Apply Mulitple Perlin"))
                 terrain.MultiplePerlinTerrain();
+
+            GUILayout.Space(20);
+            if (GUILayout.Button("Apply Ridge Noise"))
+                terrain.ApplyRigdeNoise();
         }
+        
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         if (GUILayout.Button("Reset Terrain"))
