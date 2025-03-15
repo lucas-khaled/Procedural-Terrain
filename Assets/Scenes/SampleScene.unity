@@ -534,14 +534,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomHeightRange: {x: 0, y: 0.1}
   heightMapImage: {fileID: 2800000, guid: fbd1ae3b1f433714090f0a0a95f7baf5, type: 3}
-  heightMapScale: {x: 10, y: 0.2, z: 10}
-  perlinXScale: 0.0014
-  perlinYScale: 0.0014
-  perlinOffsetX: 4000
-  perlinOffsetY: 4000
-  perlinOctaves: 4
-  perlinPersistance: 5.71
-  perlinHeightScale: 0.339
+  heightMapScale: {x: 4, y: 0.2, z: 4}
+  resetTerrain: 1
+  perlinXScale: 0.0081
+  perlinYScale: 0.0081
+  perlinOffsetX: 6637
+  perlinOffsetY: 4956
+  perlinOctaves: 3
+  perlinPersistance: 6.12
+  perlinHeightScale: 0.151
+  perlinParameters:
+  - mPerlinXScale: 0.005
+    mPerlinYScale: 0.005
+    mPerlinOffsetX: 0
+    mPerlinOffsetY: 0
+    mPerlinOctaves: 3
+    mPerlinPersistance: 8
+    mPerlinHeightScale: 0.19
+    remove: 0
+  - mPerlinXScale: 0.001
+    mPerlinYScale: 0.001
+    mPerlinOffsetX: 1000
+    mPerlinOffsetY: 1000
+    mPerlinOctaves: 3
+    mPerlinPersistance: 4
+    mPerlinHeightScale: 0.81
+    remove: 0
+  voronoiPeakCount: 4
+  voronoiFallOff: 2.7
+  voronoiDropOff: 7.93
+  voronoiMinHeight: 0.165
+  voronoiMaxHeight: 0.704
+  voronoiType: 4
   terrain: {fileID: 1997844195}
   terrainData: {fileID: 15600000, guid: 644313bcf84a4a1479b5a43cb34f2a35, type: 2}
 --- !u!1660057539 &9223372036854775807
