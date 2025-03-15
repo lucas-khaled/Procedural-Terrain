@@ -57,6 +57,15 @@ public class CustomTerrain : MonoBehaviour
 
     #endregion
 
+    #region MPD
+
+    public float MPDHeightMin = -5;
+    public float MPDHeightMax = 5;
+    public float MPDHeightDampenerPower = 2;
+    public float MPDRoughness = 2;
+
+    #endregion
+
     public Terrain terrain;
     public TerrainData terrainData;
 
@@ -229,9 +238,9 @@ public class CustomTerrain : MonoBehaviour
         float[,] heightMap = GetHeights();
         int width = hmr - 1;
         int squareSize = width;
-        float height = squareSize * 0.005f;
-        float roughness = 2.0f;
-        float heightDampener = (float)Mathf.Pow(2, -1 * roughness);
+        float maxHeight = MPDHeightMax;
+        float minHeight = MPDHeightMin;
+        float heightDampener = (float)Mathf.Pow(MPDHeightDampenerPower, -1 * MPDRoughness);
 
         int cornerX, cornerY;
         int midX, midY;
@@ -258,7 +267,7 @@ public class CustomTerrain : MonoBehaviour
                                                     + heightMap[cornerX, y]
                                                     + heightMap[x, cornerY]
                                                     + heightMap[cornerX, cornerY]) * 0.25f
-                                                    + UnityEngine.Random.Range(-height, height));
+                                                    + UnityEngine.Random.Range(minHeight, maxHeight));
                 }
             }
 
@@ -284,32 +293,34 @@ public class CustomTerrain : MonoBehaviour
                                                     + heightMap[x, y] 
                                                     + heightMap[midX, pmidYD]
                                                     + heightMap[cornerX, y]) * 0.25f
-                                                    + UnityEngine.Random.Range(-height, height));
+                                                    + UnityEngine.Random.Range(minHeight, maxHeight));
 
                     //top side
                     heightMap[midX, cornerY] = (float)((heightMap[x, cornerY]
                                                     + heightMap[midX, midY]
                                                     + heightMap[cornerX, cornerY]
                                                     + heightMap[midX, pmidYU]) * 0.25f
-                                                    + UnityEngine.Random.Range(-height, height));
+                                                    + UnityEngine.Random.Range(minHeight, maxHeight));
 
                     //left side
                     heightMap[x, midY] = (float)((heightMap[x, y]
                                                     + heightMap[pmidXL, midY]
                                                     + heightMap[x, cornerY]
                                                     + heightMap[midX, midY]) * 0.25f
-                                                    + UnityEngine.Random.Range(-height, height));
+                                                    + UnityEngine.Random.Range(minHeight, maxHeight));
 
                     //right side
                     heightMap[cornerX, midY] = (float)((heightMap[cornerX, y]
                                                     + heightMap[midX, midY]
                                                     + heightMap[cornerX, cornerY]
                                                     + heightMap[pmidXR, midY]) * 0.25f
-                                                    + UnityEngine.Random.Range(-height, height));
+                                                    + UnityEngine.Random.Range(minHeight, maxHeight));
                 }
             }
-                squareSize = (int)(squareSize * 0.5f);
-                height *= heightDampener;
+
+            squareSize = (int)(squareSize * 0.5f);
+            maxHeight *= heightDampener;
+            minHeight *= heightDampener;
         }
 
         SetHeights(heightMap);

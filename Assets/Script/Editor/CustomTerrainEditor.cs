@@ -28,6 +28,10 @@ public class CustomTerrainEditor : Editor
     private SerializedProperty voronoiMinHeight;
     private SerializedProperty voronoiMaxHeight;
     private SerializedProperty voronoiType;
+    private SerializedProperty MPDHeightMin;
+    private SerializedProperty MPDHeightMax;
+    private SerializedProperty MPDHeightDampenerPower;
+    private SerializedProperty MPDRoughness;
 
     GUITableState perlinParameterTable;
     SerializedProperty perlinParameters;
@@ -65,8 +69,12 @@ public class CustomTerrainEditor : Editor
         voronoiMinHeight = serializedObject.FindProperty(nameof(terrain.voronoiMinHeight));
         voronoiMaxHeight = serializedObject.FindProperty(nameof(terrain.voronoiMaxHeight));
         voronoiType = serializedObject.FindProperty(nameof(terrain.voronoiType));
+        MPDHeightMin = serializedObject.FindProperty(nameof(terrain.MPDHeightMin));
+        MPDHeightMax = serializedObject.FindProperty(nameof(terrain.MPDHeightMax));
+        MPDHeightDampenerPower = serializedObject.FindProperty(nameof(terrain.MPDHeightDampenerPower));
+        MPDRoughness = serializedObject.FindProperty(nameof(terrain.MPDRoughness));
 
-        perlinParameterTable = new GUITableState("perlinParameterTable");
+    perlinParameterTable = new GUITableState("perlinParameterTable");
         perlinParameters = serializedObject.FindProperty(nameof(terrain.perlinParameters));
     }
 
@@ -169,6 +177,11 @@ public class CustomTerrainEditor : Editor
         showMPD = EditorGUILayout.Foldout(showMPD, "Midpoint Displacement");
         if (showMPD) 
         {
+            EditorGUILayout.PropertyField(MPDHeightMin);
+            EditorGUILayout.PropertyField(MPDHeightMax);
+            EditorGUILayout.PropertyField(MPDHeightDampenerPower);
+            EditorGUILayout.PropertyField(MPDRoughness);
+
             if (GUILayout.Button("MPD"))
                 terrain.MidPointDisplacement();
         }
