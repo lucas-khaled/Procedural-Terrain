@@ -560,12 +560,26 @@ MonoBehaviour:
     mPerlinPersistance: 4
     mPerlinHeightScale: 0.81
     remove: 0
-  voronoiPeakCount: 4
-  voronoiFallOff: 2.7
-  voronoiDropOff: 7.93
+  voronoiPeakCount: 8
+  voronoiFallOff: 2.93
+  voronoiDropOff: 8
   voronoiMinHeight: 0.165
   voronoiMaxHeight: 0.704
   voronoiType: 4
+  MPDHeightMin: -2
+  MPDHeightMax: 2
+  MPDHeightDampenerPower: 2
+  MPDRoughness: 1
+  smoothAmount: 5
+  splatHeights:
+  - texture: {fileID: 2800000, guid: dd49ed99f55924d13bacefd240626bc5, type: 3}
+    minHeight: 0
+    maxHeight: 0.1
+    remove: 0
+  - texture: {fileID: 2800000, guid: 6f7916404ed2e49fda737e69e8f3bc69, type: 3}
+    minHeight: 0.1
+    maxHeight: 1
+    remove: 0
   terrain: {fileID: 1997844195}
   terrainData: {fileID: 15600000, guid: 644313bcf84a4a1479b5a43cb34f2a35, type: 2}
 --- !u!1660057539 &9223372036854775807
