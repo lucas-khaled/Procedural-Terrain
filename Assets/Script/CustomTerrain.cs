@@ -89,6 +89,9 @@ public class CustomTerrain : MonoBehaviour
         public float splatNoiseYScale = 0.01f;
         public float splatNoiseZScale = 0.1f;
 
+        public float minSlope = 0;
+        public float maxSlope = 90;
+
         public Vector2 tileOffset = Vector2.zero;
         public Vector2 tileSize = new Vector2(50f, 50f);
 
@@ -155,7 +158,13 @@ public class CustomTerrain : MonoBehaviour
                     int hmX = x * ((terrainData.heightmapResolution - 1) / taw);
                     int hmY = y * ((terrainData.heightmapResolution - 1) / tah);
 
-                    if (heights[hmX, hmY] >= thisHeightsStart && heights[hmX, hmY] <= thisHeightStop) 
+                    float normX = x * 1f / (taw - 1);
+                    float normY = y * 1f / (tah - 1);
+
+                    var steepness = terrainData.GetSteepness(normX, normY);
+
+                    if (heights[hmX, hmY] >= thisHeightsStart && heights[hmX, hmY] <= thisHeightStop 
+                        && steepness >= splatHeights[i].minSlope && steepness <= splatHeights[i].maxSlope) 
                     {
                         if (heights[hmX, hmY] <= splatHeights[i].minHeight)
                             splat[i] = 1 - Mathf.Abs(heights[hmX, hmY] - splatHeights[i].minHeight) / offset;
