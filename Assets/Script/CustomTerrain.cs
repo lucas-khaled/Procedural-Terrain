@@ -14,6 +14,10 @@ public class CustomTerrain : MonoBehaviour
 
     public bool resetTerrain = true;
 
+    public enum TagType { Tag = 0, Layer = 1 }
+    [SerializeField]
+    private int terrainLayer = -1;
+
     #region Perlin Noise
     public float perlinXScale = 0.01f;
     public float perlinYScale = 0.01f;
@@ -173,17 +177,27 @@ public class CustomTerrain : MonoBehaviour
         float[,] heights = terrainData.GetHeights(0, 0, hmr, hmr);
         float[,,] splatMapData = new float[taw, tah, aml];
 
-        for(int y = 0; y < tah; y++) 
+        for(int x = 0; x < tah; x++) 
         {
-            for(int x = 0; x < taw; x++) 
+            for(int y = 0; y < taw; y++) 
             {
+                int hmY = y * ((hmr - 1) / taw);
+                int hmX = x * ((hmr - 1) / tah);
+
+                var height = heights[hmX, hmY];
+
                 float[] splat = new float[aml];
                 bool emptySplat = true;
 
-                for(int i = 0; i < splatHeights.Count; i++) 
+                float normY = y / (float)(taw - 1);
+                float normX = x / (float)(tah - 1);
+
+                var steepness = terrainData.GetSteepness(normY, normX);
+
+                for (int i = 0; i < splatHeights.Count; i++) 
                 {
-                    float noise = Mathf.PerlinNoise(x * splatHeights[i].splatNoiseXScale, 
-                                                    y * splatHeights[i].splatNoiseYScale) *
+                    float noise = Mathf.PerlinNoise(y * splatHeights[i].splatNoiseXScale, 
+                                                    x * splatHeights[i].splatNoiseYScale) *
                                                     splatHeights[i].splatNoiseZScale;
 
                     float offset = splatHeights[i].splatOffset + noise;
@@ -191,21 +205,13 @@ public class CustomTerrain : MonoBehaviour
                     float thisHeightsStart = splatHeights[i].minHeight - offset;
                     float thisHeightStop = splatHeights[i].maxHeight + offset;
 
-                    int hmX = x * ((terrainData.heightmapResolution - 1) / tah);
-                    int hmY = y * ((terrainData.heightmapResolution - 1) / tah);
-
-                    float normX = x * 1f / (taw - 1);
-                    float normY = y * 1f / (tah - 1);
-
-                    var steepness = terrainData.GetSteepness(normX, normY);
-
-                    if (heights[hmX, hmY] >= thisHeightsStart && heights[hmX, hmY] <= thisHeightStop 
+                    if (height >= thisHeightsStart && height <= thisHeightStop 
                         && steepness >= splatHeights[i].minSlope && steepness <= splatHeights[i].maxSlope) 
                     {
-                        if (heights[hmX, hmY] <= splatHeights[i].minHeight)
-                            splat[i] = 1 - Mathf.Abs(heights[hmX, hmY] - splatHeights[i].minHeight) / offset;
-                        else if (heights[hmX, hmY] >= splatHeights[i].maxHeight)
-                            splat[i] = 1 - Mathf.Abs(heights[hmX, hmY] - splatHeights[i].maxHeight) / offset;
+                        if (height <= splatHeights[i].minHeight)
+                            splat[i] = 1f - Mathf.Abs(height - splatHeights[i].minHeight) / offset;
+                        else if (height >= splatHeights[i].maxHeight)
+                            splat[i] = 1f - Mathf.Abs(height - splatHeights[i].maxHeight) / offset;
                         else
                             splat[i] = 1;
 
@@ -230,6 +236,7 @@ public class CustomTerrain : MonoBehaviour
         }
 
         terrainData.SetAlphamaps(0, 0, splatMapData);
+        Debug.Log("Splatmap applied");
     }
 
     private void NormalizeVector(ref float[] splat)
@@ -599,14 +606,41 @@ public class CustomTerrain : MonoBehaviour
         {
             for (int x = 0; x < taw; x += treesSpacing)
             {
+                var height = terrainData.GetHeight(x, z);
+
+                float normX = x * 1f / (taw - 1);
+                float normZ = z * 1f / (tah - 1);
+
+                var steepness = terrainData.GetSteepness(normX, normZ);
+
                 for (int i = 0; i < terrainData.treePrototypes.Length; ++i)
                 {
-                    float thisHeight = terrainData.GetHeight(x, z) / terrainData.size.y;
+                    if (UnityEngine.Random.Range(0f, 1f) > vegetation[i].density) break;
+
+                    if (height > vegetation[i].maxHeight || height < vegetation[i].minHeight
+                        || steepness > vegetation[i].maxSlope || steepness < vegetation[i].minSlope)
+                        continue;
+
+                    float normHeight = terrainData.GetHeight(x, z) / terrainData.size.y;
 
                     TreeInstance instance = new TreeInstance();
                     instance.position = new Vector3((x + UnityEngine.Random.Range(-5f, 5f))/ taw, 
-                                                     thisHeight, 
+                                                     normHeight, 
                                                     (z + UnityEngine.Random.Range(-5f, 5f)) / tah);
+
+                    Vector3 treeWorldPos = new Vector3(instance.position.x * terrainData.size.x,
+                                                        instance.position.y * terrainData.size.y,
+                                                        instance.position.z * terrainData.size.z) + this.transform.position;
+
+                    RaycastHit hit;
+                    int layerMask = 1 << terrainLayer;
+
+                    if(Physics.Raycast(treeWorldPos + new Vector3(0, 10, 0), Vector3.down, out hit, 100, layerMask) 
+                        || Physics.Raycast(treeWorldPos - new Vector3(0, 10, 0), Vector3.up, out hit, 100, layerMask)) 
+                    {
+                        float treeHeight = (hit.point.y - transform.position.y) / terrainData.size.y;
+                        instance.position = new Vector3(instance.position.x, treeHeight, instance.position.z);
+                    }
 
                     instance.rotation = UnityEngine.Random.Range(vegetation[i].minRotation, vegetation[i].maxRotation);
                     instance.prototypeIndex = i;
@@ -672,15 +706,21 @@ public class CustomTerrain : MonoBehaviour
         SerializedObject tagManager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
         SerializedProperty tagsProp = tagManager.FindProperty("tags");
 
-        AddTag(tagsProp, "Terrain");
-        AddTag(tagsProp, "Cloud");
-        AddTag(tagsProp, "Shore");
+        AddTag(tagsProp, "Terrain", TagType.Tag);
+        AddTag(tagsProp, "Cloud", TagType.Tag);
+        AddTag(tagsProp, "Shore", TagType.Tag);
 
         tagManager.ApplyModifiedProperties();
+
+        SerializedProperty layerProp = tagManager.FindProperty("layers");
+        terrainLayer = AddTag(layerProp, "Terrain", TagType.Layer);
+        tagManager.ApplyModifiedProperties();
+
         this.gameObject.tag = "Terrain";
+        this.gameObject.layer = terrainLayer;
     }
 
-    private void AddTag(SerializedProperty tagsProp, string newTag)
+    private int AddTag(SerializedProperty tagsProp, string newTag, TagType tType)
     {
         bool found = false;
 
@@ -690,16 +730,33 @@ public class CustomTerrain : MonoBehaviour
             if (t.stringValue.Equals(newTag)) 
             {
                 found = true; 
-                break;
+                return i;
             }
         }
 
-        if (!found) 
+
+        if (!found && tType == TagType.Tag) 
         {
             tagsProp.InsertArrayElementAtIndex(0);
             SerializedProperty newTagProp = tagsProp.GetArrayElementAtIndex(0);
             newTagProp.stringValue = newTag;
         }
+        else if(!found && tType == TagType.Layer) 
+        {
+            for(int j = 8; j < tagsProp.arraySize; j++) 
+            {
+                SerializedProperty newLayer = tagsProp.GetArrayElementAtIndex(j);
+
+                if (newLayer.stringValue == "") 
+                {
+                    Debug.Log("Adding New Layer: "+newTag);
+                    newLayer.stringValue = newTag;
+                    return j;
+                }
+            }
+        }
+
+        return -1;
     }
 
     private float[,] GetHeights(bool checkReset = true) 

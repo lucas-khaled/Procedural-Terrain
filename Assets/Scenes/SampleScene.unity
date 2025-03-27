@@ -426,6 +426,114 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1826832146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1826832150}
+  - component: {fileID: 1826832149}
+  - component: {fileID: 1826832148}
+  - component: {fileID: 1826832147}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1826832147
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826832146}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1826832148
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826832146}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1826832149
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826832146}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1826832150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826832146}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 627.3, y: 203.1, z: 128.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1997844193
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +546,8 @@ GameObject:
   - component: {fileID: 1997844195}
   - component: {fileID: 1997844194}
   - component: {fileID: 1997844197}
-  m_Layer: 0
+  - component: {fileID: 1997844198}
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Terrain
   m_Icon: {fileID: 0}
@@ -533,16 +642,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomHeightRange: {x: 0, y: 0.1}
-  heightMapImage: {fileID: 2800000, guid: fbd1ae3b1f433714090f0a0a95f7baf5, type: 3}
-  heightMapScale: {x: 4, y: 0.2, z: 4}
+  heightMapImage: {fileID: 0}
+  heightMapScale: {x: 1, y: 1, z: 1}
   resetTerrain: 1
-  perlinXScale: 0.0081
-  perlinYScale: 0.0081
-  perlinOffsetX: 6637
-  perlinOffsetY: 4956
-  perlinOctaves: 3
-  perlinPersistance: 6.12
-  perlinHeightScale: 0.151
+  terrainLayer: 8
+  perlinXScale: 0.0151
+  perlinYScale: 0.0154
+  perlinOffsetX: 1881
+  perlinOffsetY: 2064
+  perlinOctaves: 2
+  perlinPersistance: 5.55
+  perlinHeightScale: 0.367
   perlinParameters:
   - mPerlinXScale: 0.005
     mPerlinYScale: 0.005
@@ -550,26 +660,26 @@ MonoBehaviour:
     mPerlinOffsetY: 0
     mPerlinOctaves: 3
     mPerlinPersistance: 8
-    mPerlinHeightScale: 0.19
+    mPerlinHeightScale: 0.09
     remove: 0
   - mPerlinXScale: 0.001
     mPerlinYScale: 0.001
-    mPerlinOffsetX: 1000
-    mPerlinOffsetY: 1000
-    mPerlinOctaves: 3
-    mPerlinPersistance: 4
-    mPerlinHeightScale: 0.81
+    mPerlinOffsetX: 400
+    mPerlinOffsetY: 700
+    mPerlinOctaves: 4
+    mPerlinPersistance: 5
+    mPerlinHeightScale: 0.2
     remove: 0
-  voronoiPeakCount: 8
-  voronoiFallOff: 2.93
-  voronoiDropOff: 8
-  voronoiMinHeight: 0.165
-  voronoiMaxHeight: 0.704
+  voronoiPeakCount: 3
+  voronoiFallOff: 2.3
+  voronoiDropOff: 1.38
+  voronoiMinHeight: 0
+  voronoiMaxHeight: 1
   voronoiType: 4
-  MPDHeightMin: -2
-  MPDHeightMax: 2
+  MPDHeightMin: -5
+  MPDHeightMax: 5
   MPDHeightDampenerPower: 2
-  MPDRoughness: 1
+  MPDRoughness: 2
   smoothAmount: 5
   splatHeights:
   - texture: {fileID: 2800000, guid: 6134c84e0f026904791e173d583581fa, type: 3}
@@ -577,37 +687,37 @@ MonoBehaviour:
     normalMapScale: 1
     minHeight: 0
     maxHeight: 1
-    splatOffset: 0.01
+    splatOffset: 0.1
     splatNoiseXScale: 0.01
-    splatNoiseYScale: 0.1
+    splatNoiseYScale: 0.01
     splatNoiseZScale: 0.1
     minSlope: 0
-    maxSlope: 10
+    maxSlope: 20
     tileOffset: {x: 0, y: 0}
     tileSize: {x: 50, y: 50}
     remove: 0
   - texture: {fileID: 2800000, guid: ad016473e0330d94ca263787d19c6fa0, type: 3}
     normalMap: {fileID: 2800000, guid: 900a141bd29b08e4483523da228bcc7f, type: 3}
-    normalMapScale: 1
-    minHeight: 0.15
+    normalMapScale: 0.7
+    minHeight: 0
     maxHeight: 1
     splatOffset: 0.1
     splatNoiseXScale: 0.01
     splatNoiseYScale: 0.01
-    splatNoiseZScale: 0.01
-    minSlope: 10
+    splatNoiseZScale: 0.1
+    minSlope: 20
     maxSlope: 90
     tileOffset: {x: 0, y: 0}
-    tileSize: {x: 50, y: 50}
+    tileSize: {x: 70, y: 70}
     remove: 0
   maximumTrees: 5000
-  treesSpacing: 11
+  treesSpacing: 6
   vegetation:
   - mesh: {fileID: 338710666303208615, guid: 27eb785ccfb32fc4d8658b1bba70409f, type: 3}
-    minHeight: 0.1
-    maxHeight: 0.2
+    minHeight: 0
+    maxHeight: 1.1
     minSlope: 0
-    maxSlope: 90
+    maxSlope: 30
     minScale: 0.5
     maxScale: 1
     colour1: {r: 1, g: 1, b: 1, a: 1}
@@ -619,6 +729,19 @@ MonoBehaviour:
     remove: 0
   terrain: {fileID: 1997844195}
   terrainData: {fileID: 15600000, guid: 644313bcf84a4a1479b5a43cb34f2a35, type: 2}
+--- !u!114 &1997844198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997844193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb97c575fe9d18498d1ed278b309350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: {x: 65, y: 192}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -627,3 +750,4 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1997844196}
+  - {fileID: 1826832150}
