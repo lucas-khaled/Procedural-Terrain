@@ -36,6 +36,8 @@ public class CustomTerrainEditor : Editor
     private SerializedProperty SmoothAmount;
     private SerializedProperty maximumTrees;
     private SerializedProperty treesSpacing;
+    private SerializedProperty maxDetails;
+    private SerializedProperty detailSpacing;
 
     GUITableState perlinParameterTable;
     SerializedProperty perlinParameters;
@@ -46,6 +48,8 @@ public class CustomTerrainEditor : Editor
     GUITableState treesTable;
     SerializedProperty trees;
 
+    GUITableState detailMapTable;
+    SerializedProperty details;
 
     #endregion
 
@@ -60,6 +64,7 @@ public class CustomTerrainEditor : Editor
     private bool showSmooth = false;
     private bool showSplatMaps = false;
     private bool showVegetation = false;
+    private bool showDetail = false;
 
     #endregion
 
@@ -90,6 +95,9 @@ public class CustomTerrainEditor : Editor
         SmoothAmount = serializedObject.FindProperty(nameof(terrain.smoothAmount));
         maximumTrees = serializedObject.FindProperty(nameof(terrain.maximumTrees));
         treesSpacing = serializedObject.FindProperty(nameof(terrain.treesSpacing));
+        maxDetails = serializedObject.FindProperty(nameof(terrain.maxDetails));
+        detailSpacing = serializedObject.FindProperty(nameof(terrain.detailSpacing));
+
 
         perlinParameterTable = new GUITableState("perlinParameterTable");
         perlinParameters = serializedObject.FindProperty(nameof(terrain.perlinParameters));
@@ -99,6 +107,9 @@ public class CustomTerrainEditor : Editor
 
         treesTable = new GUITableState("treesTable");
         trees = serializedObject.FindProperty(nameof(terrain.vegetation));
+
+        detailMapTable = new GUITableState("detailsTable");
+        details = serializedObject.FindProperty(nameof(terrain.details));
     }
 
     public override void OnInspectorGUI()
@@ -270,6 +281,35 @@ public class CustomTerrainEditor : Editor
             {
                 terrain.PlantVegetation();
             }
+        }
+
+        showDetail = EditorGUILayout.Foldout(showDetail, "Detail");
+        if (showDetail) 
+        {
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Detail", EditorStyles.boldLabel);
+
+            EditorGUILayout.IntSlider(maxDetails, 0, 10000, new GUIContent("Maximum Details"));
+            EditorGUILayout.IntSlider(detailSpacing, 1, 20, new GUIContent("Detail Spacing"));
+            detailMapTable = GUITableLayout.DrawTable(detailMapTable, details);
+            GUILayout.Space(20);
+
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("+")) 
+            {
+                terrain.AddNewDetail();
+            }
+            if (GUILayout.Button("-")) 
+            {
+                terrain.RemoveDetails();
+            }
+            EditorGUILayout.EndHorizontal();
+
+            if(GUILayout.Button("Apply Details")) 
+            {
+                terrain.ApplyDetails();
+            }
+
         }
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);

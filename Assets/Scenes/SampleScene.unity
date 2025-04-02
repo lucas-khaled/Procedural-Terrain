@@ -205,13 +205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0, y: 0.40730754, z: -0, w: 0.9132911}
+  m_LocalPosition: {x: 15.6, y: 14.7, z: 13.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 48.072, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,7 +686,7 @@ MonoBehaviour:
     normalMap: {fileID: 2800000, guid: 2d1ddb4608ae26646b020185da2edb22, type: 3}
     normalMapScale: 1
     minHeight: 0
-    maxHeight: 1
+    maxHeight: 0.7
     splatOffset: 0.1
     splatNoiseXScale: 0.01
     splatNoiseYScale: 0.01
@@ -710,6 +710,20 @@ MonoBehaviour:
     tileOffset: {x: 0, y: 0}
     tileSize: {x: 70, y: 70}
     remove: 0
+  - texture: {fileID: 2800000, guid: d8916bb29bc8d40b086290eabd69a9be, type: 3}
+    normalMap: {fileID: 0}
+    normalMapScale: 1
+    minHeight: 0.7
+    maxHeight: 1
+    splatOffset: 0.1
+    splatNoiseXScale: 0.01
+    splatNoiseYScale: 0.01
+    splatNoiseZScale: 0.1
+    minSlope: 0
+    maxSlope: 70
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 150, y: 150}
+    remove: 0
   maximumTrees: 5000
   treesSpacing: 6
   vegetation:
@@ -727,6 +741,29 @@ MonoBehaviour:
     maxRotation: 360
     density: 0.5
     remove: 0
+  details:
+  - prototype: {fileID: 0}
+    prototypeTexture: {fileID: 2800000, guid: a65d3373cd11cd72a00009188f962b59, type: 3}
+    minHeight: 0
+    maxHeight: 1
+    minSlope: 0
+    maxSlope: 20
+    overlap: 0.01
+    feather: 0.05
+    density: 0.6
+    remove: 0
+  - prototype: {fileID: 6131624740898486742, guid: 193c6bf466284e94a9b516c72b93c010, type: 3}
+    prototypeTexture: {fileID: 0}
+    minHeight: 0
+    maxHeight: 1
+    minSlope: 0
+    maxSlope: 50
+    overlap: 0.01
+    feather: 0.05
+    density: 0.01
+    remove: 0
+  maxDetails: 7604
+  detailSpacing: 2
   terrain: {fileID: 1997844195}
   terrainData: {fileID: 15600000, guid: 644313bcf84a4a1479b5a43cb34f2a35, type: 2}
 --- !u!114 &1997844198
@@ -741,7 +778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb97c575fe9d18498d1ed278b309350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: {x: 65, y: 192}
+  pos: {x: 63, y: 63}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
