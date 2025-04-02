@@ -205,13 +205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.40730754, z: -0, w: 0.9132911}
-  m_LocalPosition: {x: 15.6, y: 14.7, z: 13.5}
+  m_LocalRotation: {x: 0.03282051, y: -0.932214, z: -0.08751451, w: -0.34963003}
+  m_LocalPosition: {x: 726.77515, y: 9.085854, z: 987.10504}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 48.072, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 23.6, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,7 +588,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 800
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -686,7 +686,7 @@ MonoBehaviour:
     normalMap: {fileID: 2800000, guid: 2d1ddb4608ae26646b020185da2edb22, type: 3}
     normalMapScale: 1
     minHeight: 0
-    maxHeight: 0.7
+    maxHeight: 0.5
     splatOffset: 0.1
     splatNoiseXScale: 0.01
     splatNoiseYScale: 0.01
@@ -694,7 +694,7 @@ MonoBehaviour:
     minSlope: 0
     maxSlope: 20
     tileOffset: {x: 0, y: 0}
-    tileSize: {x: 50, y: 50}
+    tileSize: {x: 20, y: 20}
     remove: 0
   - texture: {fileID: 2800000, guid: ad016473e0330d94ca263787d19c6fa0, type: 3}
     normalMap: {fileID: 2800000, guid: 900a141bd29b08e4483523da228bcc7f, type: 3}
@@ -713,7 +713,7 @@ MonoBehaviour:
   - texture: {fileID: 2800000, guid: d8916bb29bc8d40b086290eabd69a9be, type: 3}
     normalMap: {fileID: 0}
     normalMapScale: 1
-    minHeight: 0.7
+    minHeight: 0.5
     maxHeight: 1
     splatOffset: 0.1
     splatNoiseXScale: 0.01
@@ -739,30 +739,48 @@ MonoBehaviour:
     lightColor: {r: 0, g: 0, b: 0, a: 0}
     minRotation: 0
     maxRotation: 360
-    density: 0.5
+    density: 0.4
     remove: 0
   details:
   - prototype: {fileID: 0}
     prototypeTexture: {fileID: 2800000, guid: a65d3373cd11cd72a00009188f962b59, type: 3}
+    healthyColor: {r: 1, g: 1, b: 1, a: 1}
+    dryColor: {r: 0.94509804, g: 0.41347438, b: 0.02352941, a: 1}
+    alignToGround: 1
+    maxBillboardHeight: 3
+    minBillboardHeight: 0.5
+    maxBillboardWidth: 1.5
+    minBillboardWidth: 0.5
     minHeight: 0
     maxHeight: 1
     minSlope: 0
     maxSlope: 20
     overlap: 0.01
     feather: 0.05
+    spread: 0.1
     density: 0.6
+    padding: 1
     remove: 0
   - prototype: {fileID: 6131624740898486742, guid: 193c6bf466284e94a9b516c72b93c010, type: 3}
     prototypeTexture: {fileID: 0}
+    healthyColor: {r: 1, g: 1, b: 1, a: 1}
+    dryColor: {r: 0.9433962, g: 0.9292923, b: 0.78764683, a: 1}
+    alignToGround: 1
+    maxBillboardHeight: 3
+    minBillboardHeight: 0.2
+    maxBillboardWidth: 3
+    minBillboardWidth: 0.5
     minHeight: 0
     maxHeight: 1
-    minSlope: 0
+    minSlope: 5
     maxSlope: 50
     overlap: 0.01
     feather: 0.05
-    density: 0.01
+    spread: 0.05
+    density: 0.005
+    padding: 1
     remove: 0
-  maxDetails: 7604
+  maxDetails: 800
   detailSpacing: 2
   terrain: {fileID: 1997844195}
   terrainData: {fileID: 15600000, guid: 644313bcf84a4a1479b5a43cb34f2a35, type: 2}

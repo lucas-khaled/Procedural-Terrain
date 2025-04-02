@@ -151,13 +151,22 @@ public class CustomTerrain : MonoBehaviour
     {
         public GameObject prototype = null;
         public Texture2D prototypeTexture = null;
-        public float minHeight = 0.1f;
-        public float maxHeight = 0.2f;
-        public float minSlope = 0f;
-        public float maxSlope = 90f;
+        public Color healthyColor = Color.white;
+        public Color dryColor = Color.white;
+        [Range(0,1)] public float alignToGround = 0f;
+        public float maxBillboardHeight = 2;
+        public float minBillboardHeight = 1;
+        public float maxBillboardWidth = 2;
+        public float minBillboardWidth = 1;
+        [Range(0, 1)] public float minHeight = 0.1f;
+        [Range(0, 1)] public float maxHeight = 0.2f;
+        [Range(0, 90)] public float minSlope = 0f;
+        [Range(0, 90)] public float maxSlope = 90f;
         public float overlap = 0.01f;
         public float feather = 0.05f;
+        public float spread = 1f;
         public float density = 0.5f;
+        public float padding = 1f;
         public bool remove = false;
     }
 
@@ -185,12 +194,20 @@ public class CustomTerrain : MonoBehaviour
             newDetailsPrototypes[i] = new DetailPrototype();
             newDetailsPrototypes[i].prototype = details[i].prototype;
             newDetailsPrototypes[i].prototypeTexture = details[i].prototypeTexture;
-            newDetailsPrototypes[i].healthyColor = Color.white;
+            newDetailsPrototypes[i].healthyColor = details[i].healthyColor;
+            newDetailsPrototypes[i].dryColor = details[i].dryColor;
+            newDetailsPrototypes[i].minHeight = details[i].minBillboardHeight;
+            newDetailsPrototypes[i].maxHeight = details[i].maxBillboardHeight;
+            newDetailsPrototypes[i].minWidth = details[i].minBillboardWidth;
+            newDetailsPrototypes[i].maxWidth = details[i].maxBillboardWidth;
+            newDetailsPrototypes[i].noiseSpread = details[i].spread;
+            newDetailsPrototypes[i].holeEdgePadding = details[i].padding;
+            newDetailsPrototypes[i].alignToGround = details[i].alignToGround;
 
             if (newDetailsPrototypes[i].prototype) 
             {
                 newDetailsPrototypes[i].usePrototypeMesh = true;
-                newDetailsPrototypes[i].renderMode = DetailRenderMode.Grass;
+                newDetailsPrototypes[i].renderMode = DetailRenderMode.VertexLit;
             }
             else 
             {
@@ -200,6 +217,10 @@ public class CustomTerrain : MonoBehaviour
         }
 
         terrainData.detailPrototypes = newDetailsPrototypes;
+
+        float minDetailMapValue = 0;
+        float maxDetailMapValue = (terrainData.detailScatterMode == DetailScatterMode.CoverageMode) 
+                                    ? 255 : 16;
 
         float[,] heightMap = terrainData.GetHeights(0, 0, hmr, hmr);
 
@@ -236,7 +257,7 @@ public class CustomTerrain : MonoBehaviour
                         || steepness > details[j].maxSlope || steepness < details[j].minSlope)
                         continue;
                     
-                    detailMap[y, x] = 1;
+                    detailMap[y, x] = (int)UnityEngine.Random.Range(minDetailMapValue, maxDetailMapValue);
                 }
             }
 
