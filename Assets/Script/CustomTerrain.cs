@@ -162,6 +162,7 @@ public class CustomTerrain : MonoBehaviour
         [Range(0, 1)] public float maxHeight = 0.2f;
         [Range(0, 90)] public float minSlope = 0f;
         [Range(0, 90)] public float maxSlope = 90f;
+        [Range(1, 16)] public int maxInstances = 16;
         public float overlap = 0.01f;
         public float feather = 0.05f;
         public float spread = 1f;
@@ -219,13 +220,13 @@ public class CustomTerrain : MonoBehaviour
         terrainData.detailPrototypes = newDetailsPrototypes;
 
         float minDetailMapValue = 0;
-        float maxDetailMapValue = (terrainData.detailScatterMode == DetailScatterMode.CoverageMode) 
-                                    ? 255 : 16;
-
         float[,] heightMap = terrainData.GetHeights(0, 0, hmr, hmr);
 
         for(int j = 0; j < terrainData.detailPrototypes.Length; j++) 
         {
+            float maxDetailMapValue = (terrainData.detailScatterMode == DetailScatterMode.CoverageMode)
+                                    ? details[j].maxInstances / 16 * 255 : details[j].maxInstances;
+
             int[,] detailMap = new int[terrainData.detailWidth, terrainData.detailHeight];
 
             for(int x = 0; x < terrainData.detailHeight; x+= detailSpacing) 
