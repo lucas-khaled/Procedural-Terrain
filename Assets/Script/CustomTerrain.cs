@@ -744,12 +744,13 @@ public class CustomTerrain : MonoBehaviour
 
         int tah = terrainData.alphamapHeight;
         int taw = terrainData.alphamapWidth;
+        var heights = terrainData.GetHeights(0, 0, hmr, hmr);
 
         for(int z = 0; z < tah; z += treesSpacing) 
         {
             for (int x = 0; x < taw; x += treesSpacing)
             {
-                var height = terrainData.GetHeight(x, z);
+                var height = heights[z,x];
 
                 float normX = x * 1f / (taw - 1);
                 float normZ = z * 1f / (tah - 1);
