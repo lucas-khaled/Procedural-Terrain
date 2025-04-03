@@ -377,6 +377,75 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1001 &644095550
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4197590765368614237, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_Name
+      value: WaterPlane
+      objectReference: {fileID: 0}
+    - target: {fileID: 4197590765368614237, guid: b388e215399384e54b620e74e69b8b33, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b388e215399384e54b620e74e69b8b33, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +605,7 @@ MonoBehaviour:
   randomHeightRange: {x: 0, y: 0.1}
   heightMapImage: {fileID: 0}
   heightMapScale: {x: 1, y: 1, z: 1}
-  resetTerrain: 1
+  resetTerrain: 0
   terrainLayer: 8
   perlinXScale: 0.0151
   perlinYScale: 0.0154
@@ -544,7 +613,7 @@ MonoBehaviour:
   perlinOffsetY: 2064
   perlinOctaves: 2
   perlinPersistance: 5.55
-  perlinHeightScale: 0.367
+  perlinHeightScale: 0.1
   perlinParameters:
   - mPerlinXScale: 0.005
     mPerlinYScale: 0.005
@@ -552,7 +621,7 @@ MonoBehaviour:
     mPerlinOffsetY: 0
     mPerlinOctaves: 3
     mPerlinPersistance: 8
-    mPerlinHeightScale: 0.09
+    mPerlinHeightScale: 0.009
     remove: 0
   - mPerlinXScale: 0.001
     mPerlinYScale: 0.001
@@ -560,31 +629,31 @@ MonoBehaviour:
     mPerlinOffsetY: 700
     mPerlinOctaves: 4
     mPerlinPersistance: 5
-    mPerlinHeightScale: 0.2
+    mPerlinHeightScale: 0.02
     remove: 0
   voronoiPeakCount: 3
   voronoiFallOff: 2.3
   voronoiDropOff: 1.38
   voronoiMinHeight: 0
-  voronoiMaxHeight: 1
+  voronoiMaxHeight: 0.01
   voronoiType: 4
   MPDHeightMin: -5
   MPDHeightMax: 5
   MPDHeightDampenerPower: 2
   MPDRoughness: 2
-  smoothAmount: 5
+  smoothAmount: 30
   splatHeights:
   - texture: {fileID: 2800000, guid: 6134c84e0f026904791e173d583581fa, type: 3}
     normalMap: {fileID: 2800000, guid: 2d1ddb4608ae26646b020185da2edb22, type: 3}
     normalMapScale: 1
-    minHeight: 0
-    maxHeight: 0.5
+    minHeight: 0.1
+    maxHeight: 0.7
     splatOffset: 0.1
     splatNoiseXScale: 0.01
     splatNoiseYScale: 0.01
     splatNoiseZScale: 0.1
     minSlope: 0
-    maxSlope: 20
+    maxSlope: 37
     tileOffset: {x: 0, y: 0}
     tileSize: {x: 20, y: 20}
     remove: 0
@@ -597,7 +666,7 @@ MonoBehaviour:
     splatNoiseXScale: 0.01
     splatNoiseYScale: 0.01
     splatNoiseZScale: 0.1
-    minSlope: 20
+    minSlope: 37
     maxSlope: 90
     tileOffset: {x: 0, y: 0}
     tileSize: {x: 70, y: 70}
@@ -605,23 +674,37 @@ MonoBehaviour:
   - texture: {fileID: 2800000, guid: d8916bb29bc8d40b086290eabd69a9be, type: 3}
     normalMap: {fileID: 0}
     normalMapScale: 1
-    minHeight: 0.5
+    minHeight: 0.7
     maxHeight: 1
     splatOffset: 0.1
     splatNoiseXScale: 0.01
     splatNoiseYScale: 0.01
     splatNoiseZScale: 0.1
     minSlope: 0
-    maxSlope: 70
+    maxSlope: 90
     tileOffset: {x: 0, y: 0}
     tileSize: {x: 150, y: 150}
+    remove: 0
+  - texture: {fileID: 2800000, guid: 8b428e4e6cc624a4c9235f69da8e3edb, type: 3}
+    normalMap: {fileID: 0}
+    normalMapScale: 1
+    minHeight: 0
+    maxHeight: 0.1
+    splatOffset: 0.1
+    splatNoiseXScale: 0.01
+    splatNoiseYScale: 0.01
+    splatNoiseZScale: 0.1
+    minSlope: 0
+    maxSlope: 37
+    tileOffset: {x: 0, y: 0}
+    tileSize: {x: 50, y: 50}
     remove: 0
   maximumTrees: 5000
   treesSpacing: 6
   vegetation:
   - mesh: {fileID: 338710666303208615, guid: 27eb785ccfb32fc4d8658b1bba70409f, type: 3}
-    minHeight: 0
-    maxHeight: 1.1
+    minHeight: 0.1
+    maxHeight: 0.4
     minSlope: 0
     maxSlope: 30
     minScale: 0.5
@@ -631,7 +714,7 @@ MonoBehaviour:
     lightColor: {r: 0, g: 0, b: 0, a: 0}
     minRotation: 0
     maxRotation: 360
-    density: 0.4
+    density: 1
     remove: 0
   details:
   - prototype: {fileID: 0}
@@ -643,12 +726,12 @@ MonoBehaviour:
     minBillboardHeight: 0.5
     maxBillboardWidth: 1.5
     minBillboardWidth: 0.5
-    minHeight: 0
+    minHeight: 0.1
     maxHeight: 1
     minSlope: 0
-    maxSlope: 20
+    maxSlope: 35
     maxInstances: 16
-    overlap: 0.01
+    overlap: 0
     feather: 0.05
     spread: 0.1
     density: 0.6
@@ -663,12 +746,12 @@ MonoBehaviour:
     minBillboardHeight: 0.2
     maxBillboardWidth: 3
     minBillboardWidth: 0.5
-    minHeight: 0
+    minHeight: 0.1
     maxHeight: 1
-    minSlope: 5
+    minSlope: 0
     maxSlope: 50
     maxInstances: 2
-    overlap: 0.01
+    overlap: 0
     feather: 0.05
     spread: 0.05
     density: 0.005
@@ -699,3 +782,4 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1997844196}
+  - {fileID: 644095550}

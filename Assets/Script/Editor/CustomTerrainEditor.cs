@@ -38,6 +38,8 @@ public class CustomTerrainEditor : Editor
     private SerializedProperty treesSpacing;
     private SerializedProperty maxDetails;
     private SerializedProperty detailSpacing;
+    private SerializedProperty waterHeight;
+    private SerializedProperty waterGO;
 
     GUITableState perlinParameterTable;
     SerializedProperty perlinParameters;
@@ -65,6 +67,7 @@ public class CustomTerrainEditor : Editor
     private bool showSplatMaps = false;
     private bool showVegetation = false;
     private bool showDetail = false;
+    private bool showWater = false;
 
     #endregion
 
@@ -97,7 +100,8 @@ public class CustomTerrainEditor : Editor
         treesSpacing = serializedObject.FindProperty(nameof(terrain.treesSpacing));
         maxDetails = serializedObject.FindProperty(nameof(terrain.maxDetails));
         detailSpacing = serializedObject.FindProperty(nameof(terrain.detailSpacing));
-
+        waterHeight = serializedObject.FindProperty(nameof(terrain.waterHeight));
+        waterGO = serializedObject.FindProperty(nameof(terrain.waterGO));
 
         perlinParameterTable = new GUITableState("perlinParameterTable");
         perlinParameters = serializedObject.FindProperty(nameof(terrain.perlinParameters));
@@ -312,6 +316,21 @@ public class CustomTerrainEditor : Editor
                 terrain.ApplyDetails();
             }
 
+        }
+
+        showWater = EditorGUILayout.Foldout(showWater, "Water");
+        if (showWater) 
+        {
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Water", EditorStyles.boldLabel);
+
+            EditorGUILayout.Slider(waterHeight, 0, 1, new GUIContent("Water Height"));
+            EditorGUILayout.PropertyField(waterGO);
+
+            if(GUILayout.Button("Add Water")) 
+            {
+                terrain.AddWater();
+            }
         }
 
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);

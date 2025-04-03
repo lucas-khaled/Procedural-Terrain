@@ -181,10 +181,31 @@ public class CustomTerrain : MonoBehaviour
 
     #endregion
 
+    #region Water
+
+    public float waterHeight = 0.1f;
+    public GameObject waterGO;
+
+    #endregion
+
     public Terrain terrain;
     public TerrainData terrainData;
 
     private int hmr => terrainData.heightmapResolution;
+
+    public void AddWater() 
+    {
+        string waterName = "water";
+        GameObject water = GameObject.Find(waterName);
+        if (!water) 
+        {
+            water = Instantiate(waterGO, transform.position, transform.rotation);
+            water.name = waterName;
+        }
+
+        water.transform.position = transform.position + new Vector3(terrainData.size.x * 0.5f, waterHeight * terrainData.size.y, terrainData.size.z * 0.5f);
+        water.transform.localScale = new Vector3(terrainData.size.x, 1, terrainData.size.z);
+    }
 
     public void ApplyDetails() 
     {
@@ -248,11 +269,6 @@ public class CustomTerrain : MonoBehaviour
                     var normX = xHM / (float)hmr;
                     var normY = yHM / (float)hmr;
                     var steepness = terrainData.GetSteepness(normX, normY);
-
-                    if(xHM == 442 && yHM == 444) 
-                    {
-                        Debug.Log($"Detail: x: {x} - y: {y} -> xHM: {xHM} - yHM: {yHM} -> norm X: {normX} - norm Y: {normY} -> steepness: {steepness}");
-                    }
 
                     if (height > thisHeightEnd || height < thisHeightStart
                         || steepness > details[j].maxSlope || steepness < details[j].minSlope)
