@@ -40,6 +40,12 @@ public class CustomTerrainEditor : Editor
     private SerializedProperty detailSpacing;
     private SerializedProperty waterHeight;
     private SerializedProperty waterGO;
+    private SerializedProperty erosionType;
+    private SerializedProperty erosionStregth;
+    private SerializedProperty springsPerRiver;
+    private SerializedProperty solubility;
+    private SerializedProperty droplets;
+    private SerializedProperty erosionSmoothAmount;
 
     GUITableState perlinParameterTable;
     SerializedProperty perlinParameters;
@@ -68,6 +74,7 @@ public class CustomTerrainEditor : Editor
     private bool showVegetation = false;
     private bool showDetail = false;
     private bool showWater = false;
+    private bool showErosion = false;
 
     #endregion
 
@@ -102,6 +109,12 @@ public class CustomTerrainEditor : Editor
         detailSpacing = serializedObject.FindProperty(nameof(terrain.detailSpacing));
         waterHeight = serializedObject.FindProperty(nameof(terrain.waterHeight));
         waterGO = serializedObject.FindProperty(nameof(terrain.waterGO));
+        erosionType = serializedObject.FindProperty(nameof(terrain.erosionType));
+        erosionStregth = serializedObject.FindProperty(nameof(terrain.erosionStrength));
+        springsPerRiver = serializedObject.FindProperty(nameof(terrain.springsPerRiver));
+        solubility = serializedObject.FindProperty(nameof(terrain.solubility));
+        droplets = serializedObject.FindProperty(nameof(terrain.droplets));
+        erosionSmoothAmount = serializedObject.FindProperty(nameof(terrain.erosionSmoothAmount));
 
         perlinParameterTable = new GUITableState("perlinParameterTable");
         perlinParameters = serializedObject.FindProperty(nameof(terrain.perlinParameters));
@@ -330,6 +343,25 @@ public class CustomTerrainEditor : Editor
             if(GUILayout.Button("Add Water")) 
             {
                 terrain.AddWater();
+            }
+        }
+
+        showErosion = EditorGUILayout.Foldout(showErosion, "Erosion");
+        if (showErosion) 
+        {
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            GUILayout.Label("Erosion", EditorStyles.boldLabel);
+
+            EditorGUILayout.PropertyField(erosionType);
+            EditorGUILayout.Slider(erosionStregth, 0, 1, new GUIContent("Erosion Strength"));
+            EditorGUILayout.IntSlider(droplets, 0, 500, new GUIContent("Droplets"));
+            EditorGUILayout.Slider(solubility, 0.001f, 1f, new GUIContent("Solubility"));
+            EditorGUILayout.IntSlider(springsPerRiver, 0, 20, new GUIContent("Springs Per River"));
+            EditorGUILayout.IntSlider(erosionSmoothAmount, 0, 10, new GUIContent("Smooth Amount"));
+
+            if (GUILayout.Button("Erode")) 
+            {
+                terrain.Erode();
             }
         }
 
