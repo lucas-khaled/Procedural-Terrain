@@ -188,10 +188,81 @@ public class CustomTerrain : MonoBehaviour
 
     #endregion
 
+    #region Erosion
+
+    public enum ErosionType { Rain = 0, Thermal = 1, Tidal = 2, River = 3, Wind = 4}
+    public ErosionType erosionType = ErosionType.Rain;
+    public float erosionStrength = 0.1f;
+    public int springsPerRiver = 5;
+    public float solubility = 0.01f;
+    public int droplets = 10;
+    public int erosionSmoothAmount = 5;
+
+    #endregion
+
     public Terrain terrain;
     public TerrainData terrainData;
 
     private int hmr => terrainData.heightmapResolution;
+
+    public void Erode() 
+    {
+        switch (erosionType) 
+        {
+            case ErosionType.Rain:
+                Rain();
+                break;
+            case ErosionType.Tidal:
+                Tidal();
+                break;
+            case ErosionType.Thermal:
+                Thermal();
+                break;
+            case ErosionType.River:
+                River();
+                break;
+            case ErosionType.Wind:
+                Wind();
+                break;
+        }
+
+        int temp = smoothAmount;
+        smoothAmount = erosionSmoothAmount;
+        Smooth();
+        smoothAmount = temp;
+    }
+
+    private void Wind()
+    {
+        
+    }
+
+    private void River()
+    {
+        
+    }
+
+    private void Thermal()
+    {
+        
+    }
+
+    private void Tidal()
+    {
+        
+    }
+
+    private void Rain()
+    {
+        float[,] heightMap = terrainData.GetHeights(0, 0, hmr, hmr);
+
+        for(int i = 0; i < droplets; i++) 
+        {
+            heightMap[UnityEngine.Random.Range(0, hmr), UnityEngine.Random.Range(0, hmr)] -= erosionStrength;
+        }
+
+        terrainData.SetHeights(0, 0, heightMap);
+    }
 
     public void AddWater() 
     {
