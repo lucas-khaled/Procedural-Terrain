@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-using static UnityEngine.UI.GridLayoutGroup;
 using System;
-using UnityEngine.UIElements;
 using System.Linq;
 
 [ExecuteInEditMode]
@@ -191,7 +189,7 @@ public class CustomTerrain : MonoBehaviour
 
     #region Erosion
 
-    public enum ErosionType { Rain = 0, Thermal = 1, Tidal = 2, River = 3, Wind = 4}
+    public enum ErosionType { Rain = 0, Thermal = 1, Tidal = 2, River = 3, Wind = 4, Canyon = 5}
     public ErosionType erosionType = ErosionType.Rain;
     public float erosionStrength = 0.1f;
     public int springsPerRiver = 5;
@@ -227,12 +225,65 @@ public class CustomTerrain : MonoBehaviour
             case ErosionType.Wind:
                 Wind();
                 break;
+            case ErosionType.Canyon:
+                Canyon();
+                break;
         }
 
         int temp = smoothAmount;
         smoothAmount = erosionSmoothAmount;
         Smooth();
         smoothAmount = temp;
+    }
+
+    public void Canyon()
+    {
+        var heights = terrainData.GetHeights(0, 0, hmr, hmr);
+        int currentX = UnityEngine.Random.Range(0, hmr);
+        int varAmount = 2;
+        float digDepth = 0.05f;
+        float steepness = 0.005f;
+
+        for (int y = 0; y < hmr; y++)
+        {
+            int variation = UnityEngine.Random.Range(-varAmount, varAmount);
+            currentX = currentX + variation;
+
+            if (currentX < 0 || currentX >= hmr) break;
+
+            var initialHeight = heights[currentX, y];
+            var newHeight = Mathf.Clamp(initialHeight - digDepth, 0, hmr);
+            heights[currentX, y] = newHeight;
+
+            float currentHeight = initialHeight;
+            int lowNeighboor = currentX - 1;
+            int highNeighboor = currentX + 1;
+            bool hasLow = true;
+            bool hasHigh = true;
+            int iteration = 1;
+
+            do
+            {
+                hasHigh = highNeighboor < hmr;
+                hasLow = lowNeighboor > 0;
+
+                if (!hasLow && !hasHigh) break;
+
+                float height = Mathf.Clamp(newHeight + steepness * iteration, 0, initialHeight);
+                if (hasLow)
+                    heights[lowNeighboor, y] = height;
+
+                if (hasHigh)
+                    heights[highNeighboor, y] = height;
+
+                iteration++;
+                currentHeight -= steepness;
+                lowNeighboor--;
+                highNeighboor++;
+            } while (currentHeight > 0);
+        }
+
+        terrainData.SetHeights(0, 0, heights);
     }
 
     private void Wind()
