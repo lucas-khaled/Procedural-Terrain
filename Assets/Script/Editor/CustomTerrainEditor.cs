@@ -46,6 +46,8 @@ public class CustomTerrainEditor : Editor
     private SerializedProperty solubility;
     private SerializedProperty droplets;
     private SerializedProperty erosionSmoothAmount;
+    private SerializedProperty thermalStrength;
+    private SerializedProperty erosionAmount;
 
     GUITableState perlinParameterTable;
     SerializedProperty perlinParameters;
@@ -115,6 +117,8 @@ public class CustomTerrainEditor : Editor
         solubility = serializedObject.FindProperty(nameof(terrain.solubility));
         droplets = serializedObject.FindProperty(nameof(terrain.droplets));
         erosionSmoothAmount = serializedObject.FindProperty(nameof(terrain.erosionSmoothAmount));
+        thermalStrength = serializedObject.FindProperty(nameof(terrain.thermalStrength));
+        erosionAmount = serializedObject.FindProperty(nameof(terrain.erosionQuantity));
 
         perlinParameterTable = new GUITableState("perlinParameterTable");
         perlinParameters = serializedObject.FindProperty(nameof(terrain.perlinParameters));
@@ -357,7 +361,9 @@ public class CustomTerrainEditor : Editor
             EditorGUILayout.IntSlider(droplets, 0, 500, new GUIContent("Droplets"));
             EditorGUILayout.Slider(solubility, 0.001f, 1f, new GUIContent("Solubility"));
             EditorGUILayout.IntSlider(springsPerRiver, 0, 20, new GUIContent("Springs Per River"));
+            EditorGUILayout.Slider(thermalStrength, 0.001f, 1f, new GUIContent("Thermal Strength"));
             EditorGUILayout.IntSlider(erosionSmoothAmount, 0, 10, new GUIContent("Smooth Amount"));
+            EditorGUILayout.PropertyField(erosionAmount);
 
             if (GUILayout.Button("Erode")) 
             {

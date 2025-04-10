@@ -205,8 +205,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03282051, y: -0.932214, z: -0.08751451, w: -0.34963003}
-  m_LocalPosition: {x: 726.77515, y: 9.085854, z: 987.10504}
+  m_LocalRotation: {x: 0.05249165, y: -0.8826548, z: 0.10192182, w: 0.4558258}
+  m_LocalPosition: {x: 982.0056, y: 114.60385, z: 946.8054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -377,75 +377,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1001 &644095550
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 263261155427779765, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4197590765368614237, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_Name
-      value: WaterPlane
-      objectReference: {fileID: 0}
-    - target: {fileID: 4197590765368614237, guid: b388e215399384e54b620e74e69b8b33, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b388e215399384e54b620e74e69b8b33, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +536,7 @@ MonoBehaviour:
   randomHeightRange: {x: 0, y: 0.1}
   heightMapImage: {fileID: 0}
   heightMapScale: {x: 1, y: 1, z: 1}
-  resetTerrain: 0
+  resetTerrain: 1
   terrainLayer: 8
   perlinXScale: 0.0151
   perlinYScale: 0.0154
@@ -631,17 +562,17 @@ MonoBehaviour:
     mPerlinPersistance: 5
     mPerlinHeightScale: 0.02
     remove: 0
-  voronoiPeakCount: 3
-  voronoiFallOff: 2.3
-  voronoiDropOff: 1.38
+  voronoiPeakCount: 5
+  voronoiFallOff: 1.35
+  voronoiDropOff: 0.01
   voronoiMinHeight: 0
-  voronoiMaxHeight: 0.01
-  voronoiType: 4
+  voronoiMaxHeight: 0.4
+  voronoiType: 0
   MPDHeightMin: -5
   MPDHeightMax: 5
   MPDHeightDampenerPower: 2
   MPDRoughness: 2
-  smoothAmount: 30
+  smoothAmount: 3
   splatHeights:
   - texture: {fileID: 2800000, guid: 6134c84e0f026904791e173d583581fa, type: 3}
     normalMap: {fileID: 2800000, guid: 2d1ddb4608ae26646b020185da2edb22, type: 3}
@@ -685,25 +616,25 @@ MonoBehaviour:
     tileOffset: {x: 0, y: 0}
     tileSize: {x: 150, y: 150}
     remove: 0
-  - texture: {fileID: 2800000, guid: 8b428e4e6cc624a4c9235f69da8e3edb, type: 3}
+  - texture: {fileID: 2800000, guid: 58e0577615c6d407a81c5d0c67459545, type: 3}
     normalMap: {fileID: 0}
     normalMapScale: 1
     minHeight: 0
     maxHeight: 0.1
-    splatOffset: 0.1
-    splatNoiseXScale: 0.01
-    splatNoiseYScale: 0.01
-    splatNoiseZScale: 0.1
+    splatOffset: 0.007
+    splatNoiseXScale: 0.1
+    splatNoiseYScale: 0.1
+    splatNoiseZScale: 0.05
     minSlope: 0
     maxSlope: 37
     tileOffset: {x: 0, y: 0}
-    tileSize: {x: 50, y: 50}
+    tileSize: {x: 20, y: 20}
     remove: 0
   maximumTrees: 5000
   treesSpacing: 6
   vegetation:
   - mesh: {fileID: 338710666303208615, guid: 27eb785ccfb32fc4d8658b1bba70409f, type: 3}
-    minHeight: 0.1
+    minHeight: 0.11
     maxHeight: 0.4
     minSlope: 0
     maxSlope: 30
@@ -726,7 +657,7 @@ MonoBehaviour:
     minBillboardHeight: 0.5
     maxBillboardWidth: 1.5
     minBillboardWidth: 0.5
-    minHeight: 0.1
+    minHeight: 0.3
     maxHeight: 1
     minSlope: 0
     maxSlope: 35
@@ -746,7 +677,7 @@ MonoBehaviour:
     minBillboardHeight: 0.2
     maxBillboardWidth: 3
     minBillboardWidth: 0.5
-    minHeight: 0.1
+    minHeight: 0.2
     maxHeight: 1
     minSlope: 0
     maxSlope: 50
@@ -759,6 +690,16 @@ MonoBehaviour:
     remove: 0
   maxDetails: 800
   detailSpacing: 2
+  waterHeight: 0.1
+  waterGO: {fileID: 6218106568232986313, guid: e88764adf6c0e4e7aa3fa6e905c23a4b, type: 3}
+  erosionType: 4
+  erosionStrength: 0.468
+  springsPerRiver: 5
+  solubility: 0.005
+  droplets: 150
+  erosionSmoothAmount: 5
+  thermalStrength: 0.01
+  erosionQuantity: 10
   terrain: {fileID: 1997844195}
   terrainData: {fileID: 15600000, guid: 644313bcf84a4a1479b5a43cb34f2a35, type: 2}
 --- !u!114 &1997844198
@@ -782,4 +723,3 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1997844196}
-  - {fileID: 644095550}
