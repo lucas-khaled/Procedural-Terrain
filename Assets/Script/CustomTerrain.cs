@@ -3,6 +3,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine.Rendering.Universal;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(Terrain))]
@@ -201,10 +202,100 @@ public class CustomTerrain : MonoBehaviour
 
     #endregion
 
+    #region Clouds
+
+    public int numberOfClouds = 1;
+    public int particlesPerClouds = 50;
+    public float cloudParticleSize = 5;
+    public Vector3 minCloudSize = Vector3.one;
+    public Vector3 maxCloudSize = Vector3.one*2;
+    public Material cloudMaterial;
+    public Material cloudShadowMaterial;
+    public Color cloudColor;
+    public Color cloudLining;
+    public float minCloudSpeed = 0.2f;
+    public float maxCloudSpeed = 0.5f;
+    public float distanceTravelled = 500;
+
+    #endregion
+
     public Terrain terrain;
     public TerrainData terrainData;
 
     private int hmr => terrainData.heightmapResolution;
+
+    public void GenerateClouds()
+    {
+        var cloudManager = GameObject.FindFirstObjectByType<CloudManager>();
+        if (!cloudManager) 
+        {
+            cloudManager = new GameObject("CloudManager", typeof(CloudManager)).GetComponent<CloudManager>();
+            cloudManager.transform.position = this.transform.position;
+        }
+
+        GameObject[] allClouds = GameObject.FindGameObjectsWithTag("Cloud");
+        for (int i = 0; i < allClouds.Length; i++)
+            DestroyImmediate(allClouds[i]);
+
+        for(int c = 0; c < numberOfClouds; c++) 
+        {
+            GameObject cloudGO = new GameObject();
+            cloudGO.name = "Cloud" + c;
+            cloudGO.tag = "Cloud";
+
+            cloudGO.transform.rotation = cloudManager.transform.rotation;
+            cloudGO.transform.position = cloudManager.transform.position;
+            Cloud cloud = cloudGO.AddComponent<Cloud>();
+
+            cloud.lining = cloudLining;
+            cloud.color = cloudColor;
+            cloud.numberOfParticles = particlesPerClouds;
+            cloud.minSpeed = minCloudSpeed;
+            cloud.maxSpeed = maxCloudSpeed;
+            cloud.distance = distanceTravelled;
+
+            ParticleSystem cloudSystem = cloudGO.AddComponent<ParticleSystem>();
+            Renderer cloudRend = cloudGO.GetComponent<Renderer>();
+            cloudRend.material = cloudMaterial;
+            cloudRend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            cloudRend.receiveShadows = false;
+
+            cloudGO.layer = LayerMask.NameToLayer("Sky");
+            GameObject cloudProjector = new GameObject();
+            cloudProjector.name = "Shadow";
+            cloudProjector.transform.position = cloudGO.transform.position;
+            cloudProjector.transform.forward = Vector3.down;
+            cloudProjector.transform.parent = cloudGO.transform;
+
+            DecalProjector cp = cloudProjector.AddComponent<DecalProjector>();
+            cp.material = cloudShadowMaterial;
+            cp.renderingLayerMask = (uint)LayerMask.NameToLayer("Sky");
+            cp.size = new Vector3(100, 100, 2000);
+
+            ParticleSystem.MainModule main = cloudSystem.main;
+            main.loop = false;
+            main.startLifetime = Mathf.Infinity;
+            main.startSpeed = 0;
+            main.startSize = cloudParticleSize;
+            main.startColor = Color.white;
+
+            var emission = cloudSystem.emission;
+            emission.rateOverTime = 0;
+            emission.SetBursts(new ParticleSystem.Burst[]
+            {
+                new ParticleSystem.Burst(0.0f, (short)particlesPerClouds)
+            });
+
+            var shape = cloudSystem.shape;
+            shape.shapeType = ParticleSystemShapeType.Sphere;
+            shape.scale = new Vector3(UnityEngine.Random.Range(minCloudSize.x, maxCloudSize.x),
+                                        UnityEngine.Random.Range(minCloudSize.y, maxCloudSize.y),
+                                        UnityEngine.Random.Range(minCloudSize.z, maxCloudSize.z));
+
+            cloudGO.transform.parent = cloudManager.transform;
+            cloudGO.transform.localScale = Vector3.one;
+        }
+    }
 
     public void Erode() 
     {
@@ -1144,6 +1235,7 @@ public class CustomTerrain : MonoBehaviour
         tagManager.ApplyModifiedProperties();
 
         SerializedProperty layerProp = tagManager.FindProperty("layers");
+        AddTag(layerProp, "Sky", TagType.Layer);
         terrainLayer = AddTag(layerProp, "Terrain", TagType.Layer);
         tagManager.ApplyModifiedProperties();
 
