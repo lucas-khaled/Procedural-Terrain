@@ -56,8 +56,12 @@ public class TerrainController : MonoBehaviour
         if(terrain.topNeighbor != null) 
         {
             float[,] topNeighbourHeightMap = terrain.topNeighbor.terrainData.GetHeights(0, 0, hmr, hmr);
-            for(int z = 0; z < hmr; ++z) 
-                topNeighbourHeightMap[0, z] = heigthMap[hmr - 1, z];
+            for (int z = 0; z < hmr; ++z)
+            {
+                float avgHeight = (heigthMap[hmr - 1, z] + topNeighbourHeightMap[0, z]) * 0.5f;
+                topNeighbourHeightMap[0, z] = avgHeight;
+                heigthMap[hmr - 1, z] = avgHeight;
+            }
 
             terrain.topNeighbor.terrainData.SetHeights(0, 0, topNeighbourHeightMap);
         }
@@ -66,9 +70,15 @@ public class TerrainController : MonoBehaviour
         {
             float[,] rightNeighbourHeightMap = terrain.rightNeighbor.terrainData.GetHeights(0, 0, hmr, hmr);
             for (int x = 0; x < hmr; ++x)
-                rightNeighbourHeightMap[x, 0] = heigthMap[x, hmr-1];
+            {
+                float avgHeight = (heigthMap[x, hmr - 1] + rightNeighbourHeightMap[x, 0]) * 0.5f;
+                rightNeighbourHeightMap[x, 0] = avgHeight;
+                heigthMap[x, hmr - 1] = avgHeight;
+            }
 
             terrain.rightNeighbor.terrainData.SetHeights(0, 0, rightNeighbourHeightMap);
+            
         }
+        terrainData.SetHeights(0, 0, heigthMap);
     }
 }
