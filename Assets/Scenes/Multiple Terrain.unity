@@ -563,7 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b6524a7c1932e42a994609bdf3ec58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perlinOffsetX: 0
+  perlinOffsetX: 10
   perlinOffsetZ: 0
   perlinXScale: 0.001
   perlinZScale: 0.001
