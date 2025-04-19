@@ -168,6 +168,7 @@ public class CustomTerrain : MonoBehaviour
         public float spread = 1f;
         public float density = 0.5f;
         public float padding = 1f;
+        public bool inWater = false;
         public bool remove = false;
     }
 
@@ -620,13 +621,15 @@ public class CustomTerrain : MonoBehaviour
 
                     int xHM = (int)(x/(float)terrainData.detailWidth * (hmr-1));
                     int yHM = (int)(y/(float)terrainData.detailHeight * (hmr-1));
+                    var height = heightMap[yHM, xHM];
+
+                    if (details[j].inWater is false && height <= waterHeight) continue;
 
                     float thisNoise = Utils.Map(Mathf.PerlinNoise(y * details[j].feather,
                                                                   x * details[j].feather), 0, 1, 0.5f, 1);
                     float thisHeightStart = details[j].minHeight * thisNoise - details[j].overlap * thisNoise;
                     float thisHeightEnd = details[j].maxHeight * thisNoise + details[j].overlap * thisNoise;
 
-                    var height = heightMap[xHM, yHM];
 
                     var normX = xHM / (float)hmr;
                     var normY = yHM / (float)hmr;
