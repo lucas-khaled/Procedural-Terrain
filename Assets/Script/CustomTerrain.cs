@@ -353,7 +353,7 @@ public class CustomTerrain : MonoBehaviour
             newSplatPrototypes[i].normalMapTexture = splatHeights[i].normalMap;
             newSplatPrototypes[i].normalScale = splatHeights[i].normalMapScale;
 
-            string path = "Assets/New TerrainLayer " + i + ".terrainLayer";
+            string path = "Assets/"+ splatHeights[i].texture + " Layer.terrainLayer";
             AssetDatabase.CreateAsset(newSplatPrototypes[i], path);
 
             Selection.activeObject = this.gameObject;

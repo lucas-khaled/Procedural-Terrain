@@ -6,11 +6,11 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New TerrainLayer 1
-  m_DiffuseTexture: {fileID: 2800000, guid: 58e0577615c6d407a81c5d0c67459545, type: 3}
-  m_NormalMapTexture: {fileID: 0}
+  m_Name: Grass (Lawn) (UnityEngine.Texture2D) 4
+  m_DiffuseTexture: {fileID: 2800000, guid: 3dc72defe1ae44cfc9e2ed6d9612b784, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 59d5991ee286ff84b97af46fb17cb46e, type: 3}
   m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 50, y: 50}
+  m_TileSize: {x: 30, y: 30}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
