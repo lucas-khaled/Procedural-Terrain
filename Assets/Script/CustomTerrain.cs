@@ -481,7 +481,7 @@ public class CustomTerrain : MonoBehaviour
         public float minRotation = 0f;
         public float maxRotation = 360f;
         public float density = 0.5f;
-
+        public bool inWater = false;
         public bool remove = false;
     }
 
@@ -515,13 +515,15 @@ public class CustomTerrain : MonoBehaviour
 
                 for (int i = 0; i < terrainData.treePrototypes.Length; ++i)
                 {
-                    if (UnityEngine.Random.Range(0f, 1f) > vegetation[i].density) break;
+                    if (UnityEngine.Random.Range(0f, 1f) > vegetation[i].density) continue;
 
                     if (height > vegetation[i].maxHeight || height < vegetation[i].minHeight
                         || steepness > vegetation[i].maxSlope || steepness < vegetation[i].minSlope)
                         continue;
 
                     float normHeight = terrainData.GetHeight(x, z) / terrainData.size.y;
+
+                    if (vegetation[i].inWater is false && normHeight <= waterHeight) continue;
 
                     TreeInstance instance = new TreeInstance();
                     instance.position = new Vector3((x + UnityEngine.Random.Range(-5f, 5f)) / taw,
